@@ -1,0 +1,36 @@
+.form-container{  }
+.form-container form{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container form textarea{
+    font-size: large;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 10px;
+    resize: none;
+    border: none;
+}
+
+
+.form-bottom{
+    flex: 1;
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+}
+.form-bottom-icons{
+    display: flex;
+    flex-direction: row;
+}
+
+.tag{
+    position: absolute;
+    text-align: center;
+    background-image: linear-gradient(green, rgb(12, 97, 12));
+    max-width: 100px;
+    padding: 5px;
+    margin: 1px;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.5);
+}
