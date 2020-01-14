@@ -42,30 +42,30 @@ class Form extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const file = this.refs.fileUploader;
+        // const file = this.refs.fileUploader;
+        console.log(`post`, this.state.post)
         const text = this.state.post;
+        const isEmpty = Validate.isEmpty(text)
+        console.log(`isEmpty`, isEmpty)
+        if(isEmpty) alert(`Please Enter valid post`)
+        else{
+            const postType = this.state.postType;
+            Tasks.insert({ text, postType, location: this.state.location['label'],  createdAt: new Date() });
+        }
         
-        // if(Validate.isEmpty(text)) alert(`Please Enter valid post`)
-        // else{
-        //     const postType = this.state.postType;
-        //     Tasks.insert({ text, postType, location: this.state.location['label'],  createdAt: new Date() });
-        // }
-        
-        // this.setState({post: ""})
+        this.setState({post: ""})
         // this.setState({fileName: file.files[0].name});
-        // ReactDOM.findDOMNode(this.refs.textInput).value = '';
+        ReactDOM.findDOMNode(this.refs.textInput).value = '';
     }
 
     handleChange = (event) =>{
         const post = event.currentTarget.value;
         this.setState({post});
     }
-    handleFileChange = event =>{
-        console.log(event.target.files[0]);
-        this.setState({file: event.target.files[0], loaded: 0});
-        
-    
-    }
+    // handleFileChange = event =>{
+    //     console.log(event.target.files[0]);
+    //     this.setState({file: event.target.files[0], loaded: 0});
+    // }
 
     handlePinClick() {
         navigator.geolocation.getCurrentPosition( location =>{
@@ -80,7 +80,6 @@ class Form extends Component {
     handleDocClick(){
         const file = this.refs.fileUploader;
         file.click();
-
     }
      
     render() { 
@@ -88,7 +87,7 @@ class Form extends Component {
             <div className="form-container">
                 <form>
                     {this.state.location.label ? <span className="tag">{this.state.location.label}</span>: null}
-                    <textarea style={{marginTop:55}} cols="40" rows="5" type="text" ref="textInput" placeholder="Write something to post"/>
+                    <textarea style={{marginTop:55}} cols="40" rows="5" type="text" ref="textInput" onChange={this.handleChange} placeholder="Write something to post"/>
                     <div className="form-bottom">
                         <div className="form-bottom-icons">
                             <div onClick={()=>this.handlePinClick()}>
@@ -99,7 +98,7 @@ class Form extends Component {
                                 <img src="/camera.png" className="icon" title="camera"/>
                             </div>
                             <div>
-                                <input type="file" id="file" accept="image/*" onChange={this.handleFileChange}/>
+                                {/* <input type="file" id="file" accept="image/*" onChange={this.handleFileChange}/> */}
                                 <img src="/contract.png" className="icon" title="document"/>
                             </div>
                         </div>
